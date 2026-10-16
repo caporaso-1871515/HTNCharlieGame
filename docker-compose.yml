@@ -1,0 +1,15 @@
+services:
+  htn-charlie:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: htn-charlie-game:1.0.0
+    container_name: htn_charlie_app
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+    volumes:
+      # Condivisione del socket Unix X11 per inoltrare la finestra grafica Swing all'host
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    # Su host Linux o WSLg, network_mode e ipc "host" garantiscono accesso diretto al server grafico
+    network_mode: "host"
+    ipc: "host"
